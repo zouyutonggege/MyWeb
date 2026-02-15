@@ -29,14 +29,13 @@ CORS(app)
 # 邮件服务器配置 (请根据实际情况修改)
 SMTP_CONFIG = {
     'host': 'smtp.qq.com',
-    'port': 465,
-    'use_tls': True,   # 把 False 改成 True
-    'username': '3383227706@qq.com',                # 直接写你的 QQ 号
-    'password': 'bvsxtsrtyfqdchbf',                # 直接写你的授权码
-    'from_name': '新年电子贺卡',                     
-    'from_email': '3383227706@qq.com'               # 直接写你的发件邮箱
+    'port': 465,             # 保持 465
+    'use_tls': False,        # 465 端口不需要 starttls，所以这里填 False
+    'username': '3383227706@qq.com',
+    'password': 'bvsxtsrtyfqdchbf',
+    'from_name': '新年电子贺卡',
+    'from_email': '3383227706@qq.com'
 }
-
 # 贺卡图片路径
 CARD_IMAGES_DIR = os.path.join(os.path.dirname(__file__), 'cards')
 # 邮件模板路径
@@ -451,12 +450,11 @@ def send_email(to_emails, subject, html_content, cover_gif_path, cover_png_path,
     else:
         print(f"✗ 内页图片数据为空")
 
-    # 发送邮件
+   # 发送邮件
     print(f"正在连接SMTP服务器...")
-    with smtplib.SMTP(SMTP_CONFIG['host'], SMTP_CONFIG['port']) as server:
-        if SMTP_CONFIG['use_tls']:
-            server.starttls()
-            print(f"✓ TLS连接已建立")
+    # 使用 SSL 模式连接 465 端口
+    with smtplib.SMTP_SSL(SMTP_CONFIG['host'], SMTP_CONFIG['port']) as server:
+        # 直接登录，不需要 server.starttls()
         server.login(SMTP_CONFIG['username'], SMTP_CONFIG['password'])
         print(f"✓ SMTP登录成功")
         server.send_message(msg)
