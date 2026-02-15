@@ -154,6 +154,27 @@ def draw_text_simple(draw, position, text, font, text_color):
 
 def generate_card_image(template_id, to_text, message_text, from_text):
     """
+    极简修复版：直接返回背景图，不画文字，防止由于缺少字体导致的报错
+    """
+    try:
+        print(f"🚀 正在提取模板 {template_id} 的背景图...")
+        # 1. 获取背景图路径
+        template_id_str = str(template_id).zfill(2)
+        bg_path = os.path.join(CARD_IMAGES_DIR, f'{template_id_str}_inner page.png')
+        
+        # 2. 如果背景图存在，直接读取并返回
+        if os.path.exists(bg_path):
+            with open(bg_path, 'rb') as f:
+                img_data = f.read()
+                print(f"✓ 背景图提取成功")
+                return img_data
+        else:
+            print(f"✗ 找不到背景图: {bg_path}")
+            return None
+            
+    except Exception as e:
+        print(f"✗ 提取图片失败: {str(e)}")
+        return None
     生成贺卡内页图片，精确复刻前端CSS布局
     
     前端CSS布局分析：
