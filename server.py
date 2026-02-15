@@ -28,9 +28,9 @@ CORS(app)
 # ==================== 配置 ====================
 # 邮件服务器配置 (请根据实际情况修改)
 SMTP_CONFIG = {
-    'host': os.getenv('SMTP_HOST', 'smtp.qq.com'),  # SMTP服务器地址
-    'port': int(os.getenv('SMTP_PORT', '587')),      # SMTP端口
-    'use_tls': True,                                 # 是否使用TLS
+    'host': os.getenv('SMTP_HOST', 'smtp.qq.com'),
+    'port': int(os.getenv('SMTP_PORT', '465')),      # 这里改成 465
+    'use_tls': False,                                # 这里改成 False (465自带SSL加密)
     'username': os.getenv('SMTP_USERNAME', ''),     # 发件邮箱
     'password': os.getenv('SMTP_PASSWORD', ''),     # 邮箱密码/授权码
     'from_name': '新年电子贺卡',                     # 发件人名称
