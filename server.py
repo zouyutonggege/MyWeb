@@ -526,7 +526,7 @@ def send_card():
             }), 400
 
         # 生成邮件内容
-        subject = f'新年祝福 - {from_name} 的贺卡'
+        subject = f'新年祝福 - 来自 {from_name} 的贺卡'
         html_content = generate_html_email(to_name, message, from_name)
 
         # 获取文件路径
