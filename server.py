@@ -91,7 +91,11 @@ def get_font(size, bold=False):
     
     # 如果没有找到字体，使用默认字体
     print(f"⚠ 未找到中文字体，使用默认字体")
-    return ImageFont.load_default()
+    try:
+        # 尝试返回一个稍微大点的默认字体，防止生成失败
+        return ImageFont.load_default(size=size) 
+    except:
+        return ImageFont.load_default()
 
 def wrap_text(text, font, max_width, draw):
     """
