@@ -324,7 +324,7 @@ def generate_card_image(template_id, to_text, message_text, from_text):
         
         # 7. 保存为字节流
         img_byte_arr = BytesIO()
-        img.save(img_byte_arr, format='PNG', quality=95)
+        img.save(img_byte_arr, format='JPEG', quality=60)
         img_byte_arr.seek(0)
         img_bytes = img_byte_arr.getvalue()
         
