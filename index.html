@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新年电子贺卡</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- 背景装饰层 -->
+    <div class="bg-gradient"></div>
+    <div class="bg-orbs">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+
+    <!-- 进度条遮罩层 -->
+    <div id="progress-overlay" class="progress-overlay">
+        <div class="progress-container">
+            <h3 class="progress-title">正在发送您的祝福...</h3>
+            <div class="progress-bar-wrapper">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+            <p class="progress-text" id="progressText">0%</p>
+        </div>
+    </div>
+
+    <!-- 主容器 -->
+    <div class="app-container">
+        
+        <!-- 1️⃣ 首页 / 模板选择页 -->
+        <section id="page-select" class="page active">
+            <div class="glass-card welcome-card">
+                <h1 class="page-title">选择你的新年贺卡</h1>
+                <p class="page-subtitle">传递温暖,送出祝福</p>
+            </div>
+            
+            <div class="templates-grid">
+                <div class="template-item" data-template="1">
+                    <div class="template-preview">
+                        <img class="template-cover" src="cards/01_cover.png" data-gif="cards/01_cover.gif" alt="模板 1" loading="lazy">
+                        <div class="template-overlay">
+                            <span class="select-text">选择此款</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="template-item" data-template="2">
+                    <div class="template-preview">
+                        <img class="template-cover" src="cards/02_cover.png" data-gif="cards/02_cover.gif" alt="模板 2" loading="lazy">
+                        <div class="template-overlay">
+                            <span class="select-text">选择此款</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="template-item" data-template="3">
+                    <div class="template-preview">
+                        <img class="template-cover" src="cards/03_cover.png" data-gif="cards/03_cover.gif" alt="模板 3" loading="lazy">
+                        <div class="template-overlay">
+                            <span class="select-text">选择此款</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="template-item" data-template="4">
+                    <div class="template-preview">
+                        <img class="template-cover" src="cards/04_cover.png" data-gif="cards/04_cover.gif" alt="模板 4" loading="lazy">
+                        <div class="template-overlay">
+                            <span class="select-text">选择此款</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="template-item" data-template="5">
+                    <div class="template-preview">
+                        <img class="template-cover" src="cards/05_cover.png" data-gif="cards/05_cover.gif" alt="模板 5" loading="lazy">
+                        <div class="template-overlay">
+                            <span class="select-text">选择此款</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="template-item" data-template="6">
+                    <div class="template-preview">
+                        <img class="template-cover" src="cards/06_cover.png" data-gif="cards/06_cover.gif" alt="模板 6" loading="lazy">
+                        <div class="template-overlay">
+                            <span class="select-text">选择此款</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2️⃣ 编辑页 -->
+        <section id="page-edit" class="page">
+            <div class="edit-container">
+                <!-- 左侧：贺卡预览 -->
+                <div class="card-preview-section">
+                    <div class="glass-card card-preview-wrapper">
+                        <div class="card-canvas" id="cardCanvas">
+                            <img id="cardInnerImage" src="" alt="贺卡内页">
+                            <div class="card-text-overlay">
+                                <div class="text-group">
+                                    <div class="text-to" id="previewTo">亲爱的你</div>
+                                    <div class="text-message" id="previewMessage">愿新的一年<br>所有美好如约而至</div>
+                                    <div class="text-from" id="previewFrom">来自远方</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 右侧：编辑表单 -->
+                <div class="edit-form-section">
+                    <div class="glass-card edit-form">
+                        <h2 class="form-title">编辑你的祝福</h2>
+                        
+                        <div class="form-group">
+                            <label for="inputTo">致</label>
+                            <input type="text" id="inputTo" maxlength="10" placeholder="最多 10 字" value="亲爱的你">
+                            <span class="char-count"><span id="countTo">4</span>/10</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="inputMessage">祝福语</label>
+                            <textarea id="inputMessage" maxlength="150" rows="4" placeholder="最多 150 字">愿新的一年
+所有美好如约而至</textarea>
+                            <span class="char-count"><span id="countMessage">11</span>/150</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="inputFrom">署名</label>
+                            <input type="text" id="inputFrom" maxlength="10" placeholder="最多 10 字" value="来自远方">
+                            <span class="char-count"><span id="countFrom">4</span>/10</span>
+                        </div>
+
+                        <div class="form-actions">
+                            <button class="btn btn-secondary" id="btnBack">返回</button>
+                            <button class="btn btn-primary" id="btnComplete">制作完成</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3️⃣ 封装仪式页 -->
+        <section id="page-seal" class="page">
+            <div class="seal-container seal-container-compact">
+                <div class="animation-stage" id="animationStage">
+                    <!-- 动画元素将通过 JavaScript 动态添加 -->
+                </div>
+                <div class="seal-action" id="sealAction" style="display: none;">
+                    <button class="btn btn-primary btn-large" id="btnSend">发送给好友</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4️⃣ 发送页（弹窗） -->
+        <div id="modal-send" class="modal">
+            <div class="modal-backdrop"></div>
+            <div class="glass-card modal-content">
+                <h2 class="modal-title">寄出你的祝福</h2>
+                <div class="form-group">
+                    <label for="inputEmail">收件人邮箱</label>
+                    <input type="text" id="inputEmail" placeholder="可输入多个邮箱，用逗号分隔">
+                    <p class="input-hint">例如：example1@qq.com, example2@163.com</p>
+                </div>
+                <div class="modal-actions">
+                    <button class="btn btn-secondary" id="btnCancelSend">取消</button>
+                    <button class="btn btn-primary" id="btnConfirmSend">确认寄出</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5️⃣ 发送中动画页 -->
+        <section id="page-delivery" class="page">
+            <div class="delivery-container">
+                <div class="delivery-animation">
+                    <!-- 马儿动画 -->
+                    <div class="horse-track">
+                        <div class="horse-container" id="horseContainer">
+                            <img src="horse_postman.png" alt="小马邮差" class="horse-image">
+                        </div>
+                    </div>
+                    
+                    <div class="delivery-text" id="deliveryText">
+                        <p class="delivery-message">马儿正在送信中……</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

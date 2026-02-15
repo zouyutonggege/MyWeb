@@ -1,0 +1,1037 @@
+/* ==================== CSS 变量 ==================== */
+:root {
+    /* 配色方案 */
+    --color-primary: #d45230;
+    --color-secondary: #e29054;
+    --color-accent-1: #7aa5bc;
+    --color-accent-2: #f8d89d;
+    
+    /* 玻璃效果 */
+    --glass-bg: rgba(255, 255, 255, 0.1);
+    --glass-border: rgba(255, 255, 255, 0.18);
+    --glass-shadow: 0 8px 32px rgba(212, 82, 48, 0.15);
+    
+    /* 间距 */
+    --spacing-xs: 8px;
+    --spacing-sm: 16px;
+    --spacing-md: 24px;
+    --spacing-lg: 40px;
+    --spacing-xl: 64px;
+    
+    /* 圆角 */
+    --radius-sm: 12px;
+    --radius-md: 20px;
+    --radius-lg: 32px;
+    
+    /* 动画 */
+    --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ==================== 全局样式 ==================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: #1a1a1a;
+    color: #333;
+    overflow-x: hidden;
+    min-height: 100vh;
+    position: relative;
+}
+
+/* ==================== 背景层 ==================== */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('background.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    z-index: -3;
+}
+
+.bg-gradient {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, 
+        rgba(212, 82, 48, 0.3) 0%, 
+        rgba(226, 144, 84, 0.3) 40%, 
+        rgba(248, 216, 157, 0.3) 70%,
+        rgba(122, 165, 188, 0.3) 100%
+    );
+    opacity: 0.9;
+    z-index: -2;
+}
+
+.bg-orbs {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
+}
+
+.orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.4;
+    animation: float 20s ease-in-out infinite;
+}
+
+.orb-1 {
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, #d45230, transparent);
+    top: -10%;
+    left: -10%;
+    animation-delay: 0s;
+}
+
+.orb-2 {
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, #e29054, transparent);
+    top: 50%;
+    right: -10%;
+    animation-delay: -7s;
+}
+
+.orb-3 {
+    width: 450px;
+    height: 450px;
+    background: radial-gradient(circle, #7aa5bc, transparent);
+    bottom: -10%;
+    left: 30%;
+    animation-delay: -14s;
+}
+
+@keyframes float {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    25% { transform: translate(50px, -50px) scale(1.1); }
+    50% { transform: translate(-30px, 30px) scale(0.9); }
+    75% { transform: translate(40px, 50px) scale(1.05); }
+}
+
+/* ==================== 主容器 ==================== */
+.app-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: var(--spacing-lg);
+    min-height: 100vh;
+    position: relative;
+    z-index: 1;
+}
+
+/* ==================== 玻璃卡片 ==================== */
+.glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--glass-shadow);
+    padding: var(--spacing-lg);
+    position: relative;
+    overflow: hidden;
+}
+
+.glass-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, 
+        transparent, 
+        rgba(255, 255, 255, 0.3), 
+        transparent
+    );
+}
+
+/* ==================== 页面切换 ==================== */
+.page {
+    display: none;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.page.active {
+    display: block;
+    animation: pageEnter 0.6s var(--ease-smooth) forwards;
+}
+
+.page.exit {
+    animation: pageExit 0.4s var(--ease-smooth) forwards;
+}
+
+@keyframes pageEnter {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pageExit {
+    to {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+}
+
+/* ==================== 1️⃣ 首页 / 模板选择 ==================== */
+.welcome-card {
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+}
+
+.page-title {
+    font-size: 3rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: var(--spacing-sm);
+    letter-spacing: -0.02em;
+}
+
+.page-subtitle {
+    font-size: 1.25rem;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 400;
+}
+
+.templates-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-lg);
+}
+
+.template-item {
+    cursor: pointer;
+    transition: transform 0.3s var(--ease-smooth);
+}
+
+.template-item:hover {
+    transform: translateY(-8px);
+}
+
+.template-preview {
+    position: relative;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    aspect-ratio: 4/3;
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.template-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s var(--ease-smooth);
+}
+
+/* GIF封面图优化 */
+.template-cover {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+}
+
+.template-item:hover .template-cover {
+    transform: scale(1.05);
+}
+
+.template-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(212, 82, 48, 0.9), transparent 50%);
+    opacity: 0;
+    transition: opacity 0.3s var(--ease-smooth);
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: var(--spacing-md);
+}
+
+.template-item:hover .template-overlay {
+    opacity: 1;
+}
+
+.select-text {
+    color: white;
+    font-size: 1.125rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+
+/* ==================== 2️⃣ 编辑页 ==================== */
+.edit-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-lg);
+    align-items: stretch;
+}
+
+.card-preview-section,
+.edit-form-section {
+    display: flex;
+    flex-direction: column;
+}
+
+.card-preview-wrapper {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-canvas {
+    position: relative;
+    width: 100%;
+    flex: 1;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    background: #f5f5f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-canvas img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+.card-text-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-lg);
+    pointer-events: none;
+}
+
+.text-group {
+    position: relative;
+    width: 100%;
+    max-width: 85%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-md);
+}
+
+.text-to {
+    font-size: 1.3rem;
+    font-weight: 400;
+    color: #555;
+    text-shadow: 0 2px 8px rgba(255, 255, 255, 0.9);
+    align-self: flex-start;
+    letter-spacing: 0.1em;
+    font-family: "KaiTi", "STKaiti", "华文楷体", serif;
+    opacity: 0.85;
+}
+
+.text-message {
+    font-size: var(--message-font-size, 2rem);
+    font-weight: 500;
+    color: #d45230;
+    line-height: 1.8;
+    margin: var(--spacing-md) 0;
+    white-space: pre-wrap;
+    text-shadow: 0 2px 12px rgba(255, 255, 255, 0.95);
+    align-self: center;
+    text-align: center;
+    width: 100%;
+    font-family: "KaiTi", "STKaiti", "华文楷体", serif;
+    letter-spacing: 0.08em;
+    position: relative;
+    transition: font-size 0.2s ease;
+    max-height: 70%;
+    overflow: hidden;
+}
+
+/* 给祝福语添加装饰性引号效果 */
+.text-message::before {
+    content: '"';
+    position: absolute;
+    left: -0.3em;
+    top: -0.1em;
+    font-size: 2.5rem;
+    color: #e29054;
+    opacity: 0.3;
+    font-family: Georgia, serif;
+}
+
+.text-message::after {
+    content: '"';
+    position: absolute;
+    right: -0.3em;
+    bottom: -0.3em;
+    font-size: 2.5rem;
+    color: #e29054;
+    opacity: 0.3;
+    font-family: Georgia, serif;
+}
+
+.text-from {
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: #777;
+    text-shadow: 0 2px 8px rgba(255, 255, 255, 0.9);
+    align-self: flex-end;
+    letter-spacing: 0.15em;
+    font-family: "KaiTi", "STKaiti", "华文楷体", serif;
+    opacity: 0.8;
+    font-style: italic;
+}
+
+/* 添加一些浪漫的装饰元素 */
+.text-group::before {
+    content: '♡';
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.2rem;
+    color: #e29054;
+    opacity: 0.4;
+    animation: heartbeat 2s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+    0%, 100% { 
+        transform: translateX(-50%) scale(1);
+        opacity: 0.4;
+    }
+    50% { 
+        transform: translateX(-50%) scale(1.2);
+        opacity: 0.6;
+    }
+}
+
+/* 编辑表单 */
+.edit-form {
+    padding: var(--spacing-lg);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-title {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #5a3d2b;
+    margin-bottom: var(--spacing-lg);
+    text-align: center;
+    letter-spacing: 0.05em;
+    font-family: "KaiTi", "STKaiti", "华文楷体", serif;
+}
+
+.form-group {
+    margin-bottom: var(--spacing-md);
+    position: relative;
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #5a3d2b;
+    margin-bottom: var(--spacing-xs);
+    letter-spacing: 0.08em;
+    font-family: "KaiTi", "STKaiti", "华文楷体", serif;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: var(--spacing-sm);
+    border: 1px solid rgba(90, 61, 43, 0.4);
+    border-radius: var(--radius-sm);
+    background: rgba(255, 255, 255, 0.35);
+    backdrop-filter: blur(10px);
+    color: #4a3428;
+    font-size: 1.05rem;
+    font-family: "KaiTi", "STKaiti", "华文楷体", serif;
+    transition: all 0.3s var(--ease-smooth);
+    letter-spacing: 0.05em;
+    line-height: 1.6;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: rgba(90, 61, 43, 0.6);
+    font-family: "KaiTi", "STKaiti", "华文楷体", serif;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--color-accent-2);
+    background: rgba(255, 255, 255, 0.18);
+    box-shadow: 0 0 0 3px rgba(248, 216, 157, 0.25);
+    transform: translateY(-1px);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.char-count {
+    position: absolute;
+    right: var(--spacing-sm);
+    bottom: var(--spacing-xs);
+    font-size: 0.75rem;
+    color: rgba(90, 61, 43, 0.7);
+    font-family: monospace;
+}
+
+/* 按钮 */
+.btn {
+    padding: var(--spacing-sm) var(--spacing-lg);
+    border: none;
+    border-radius: var(--radius-md);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s var(--ease-smooth);
+    backdrop-filter: blur(10px);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+    color: white;
+    box-shadow: 0 4px 16px rgba(212, 82, 48, 0.3);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(212, 82, 48, 0.4);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+.btn-large {
+    padding: var(--spacing-md) var(--spacing-xl);
+    font-size: 1.25rem;
+}
+
+.form-actions {
+    display: flex;
+    gap: var(--spacing-sm);
+    margin-top: auto;
+    padding-top: var(--spacing-lg);
+}
+
+.form-actions .btn {
+    flex: 1;
+}
+
+/* ==================== 3️⃣ 封装仪式页 ==================== */
+.seal-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh;
+}
+
+/* 紧凑布局 - 让信封和按钮整体上移 */
+.seal-container-compact {
+    justify-content: flex-start;
+    padding-top: 10vh;
+    min-height: 100vh;
+}
+
+.animation-stage {
+    width: 500px;
+    height: 500px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 贺卡动画元素 */
+.card-element {
+    position: absolute;
+    width: 200px;
+    height: 150px;  /* 4:3 比例 */
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+}
+
+.card-element img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+/* 信封 - 简化版本 */
+.envelope-element {
+    position: absolute;
+    width: 260px;
+    height: 180px;
+    background: linear-gradient(135deg, #e8d4c0 0%, #d4c0a8 100%);
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    overflow: hidden;
+    z-index: 5;
+}
+
+/* 信封主体 */
+.envelope-body {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #e8d4c0 0%, #d4c0a8 100%);
+    border: 2px solid rgba(180, 150, 120, 0.4);
+    border-radius: 0 0 10px 10px;
+    position: relative;
+}
+
+/* 信封盖子 - 三角形 */
+.envelope-flap {
+    position: absolute;
+    top: -1px;
+    left: 50%;
+    transform: translateX(-50%) scaleY(-1);
+    width: 0;
+    height: 0;
+    border-left: 130px solid transparent;
+    border-right: 130px solid transparent;
+    border-top: 100px solid #b8a58e;
+    z-index: 10;
+    transition: transform 0.8s ease-in-out;
+}
+
+/* 火漆印章 */
+.wax-seal {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    background: radial-gradient(circle, #d45230, #a83820);
+    border-radius: 50%;
+    box-shadow: 0 4px 16px rgba(212, 82, 48, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: calc(50% - 90px + 50px); /* 在信封顶部（盖子尖端） */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 20;
+}
+
+.wax-seal::before {
+    content: '福';
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+/* 封装动画序列 */
+
+/* 信封向上移动，吃掉贺卡 */
+@keyframes envelopeEatCard {
+    from {
+        top: 100%;
+        transform: translate(-50%, 0);
+    }
+    to {
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+}
+
+/* 信封盖子关闭 */
+.envelope-flap.closed {
+    transform: translateX(-50%) scaleY(1) !important;
+}
+
+@keyframes cardShrink {
+    to { transform: scale(0.8); }
+}
+
+@keyframes cardFold {
+    to { 
+        transform: scale(0.8) rotateX(180deg);
+        opacity: 0;
+    }
+}
+
+@keyframes cardSlideIn {
+    from { 
+        transform: translateY(-100px);
+        opacity: 0;
+    }
+    to { 
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* 信封盖子关闭动画 - 从打开到关闭 */
+@keyframes envelopeFlapClose {
+    from { 
+        transform: translateY(-110px) scaleY(0);
+        opacity: 0;
+    }
+    to { 
+        transform: translateY(0) scaleY(1);
+        opacity: 1;
+    }
+}
+
+@keyframes sealDrop {
+    from {
+        transform: translate(-50%, -200px);
+        opacity: 0;
+    }
+    to {
+        transform: translate(-50%, -50%);
+        opacity: 1;
+    }
+}
+
+.seal-action {
+    margin-top: var(--spacing-xl);
+    animation: fadeInUp 0.6s var(--ease-smooth) forwards;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ==================== 4️⃣ 发送弹窗 ==================== */
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(8px);
+    animation: fadeIn 0.3s var(--ease-smooth);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.modal-content {
+    position: relative;
+    z-index: 1;
+    max-width: 500px;
+    width: 90%;
+    animation: modalSlideUp 0.4s var(--ease-smooth);
+}
+
+@keyframes modalSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.modal-title {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: white;
+    margin-bottom: var(--spacing-lg);
+}
+
+.input-hint {
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin-top: var(--spacing-xs);
+}
+
+.modal-actions {
+    display: flex;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-lg);
+}
+
+.modal-actions .btn {
+    flex: 1;
+}
+
+/* ==================== 5️⃣ 发送动画页 ==================== */
+.delivery-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh;
+}
+
+.delivery-animation {
+    width: 100%;
+    max-width: 800px;
+    text-align: center;
+}
+
+.horse-track {
+    width: 100%;
+    height: 200px;
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    background: linear-gradient(to bottom, 
+        rgba(255, 255, 255, 0.1), 
+        rgba(255, 255, 255, 0.05)
+    );
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    margin-bottom: var(--spacing-lg);
+}
+
+.horse-container {
+    position: absolute;
+    left: -250px;
+    bottom: 20px;
+    animation: horseRun 4s linear infinite;
+}
+
+@keyframes horseRun {
+    to {
+        left: calc(100% + 50px);
+    }
+}
+
+/* 小马邮差PNG图片样式 */
+.horse-image {
+    width: 150px;  /* 从200px缩小到150px */
+    height: auto;
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.2));
+    animation: horseBounce 0.5s ease-in-out infinite;
+}
+
+/* 奔跑时的上下跳动效果 */
+@keyframes horseBounce {
+    0%, 100% { 
+        transform: translateY(0) rotate(-5deg);
+    }
+    25% {
+        transform: translateY(-10px) rotate(-3deg);
+    }
+    50% { 
+        transform: translateY(0) rotate(-5deg);
+    }
+    75% {
+        transform: translateY(-8px) rotate(-7deg);
+    }
+}
+
+/* 保留SVG样式以防回退 */
+.horse-svg {
+    width: 200px;
+    height: 150px;
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.2));
+}
+
+/* 马腿动画 (SVG版本使用，PNG版本不需要) */
+.leg {
+    animation: legMove 0.4s ease-in-out infinite;
+}
+
+.leg-1 { animation-delay: 0s; }
+.leg-2 { animation-delay: 0.2s; }
+.leg-3 { animation-delay: 0.1s; }
+.leg-4 { animation-delay: 0.3s; }
+
+@keyframes legMove {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+.delivery-text {
+    padding: var(--spacing-lg);
+}
+
+.delivery-message {
+    font-size: 1.75rem;
+    font-weight: 500;
+    color: white;
+    text-shadow: 0 2px 16px rgba(0, 0, 0, 0.3);
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+/* ==================== 进度条遮罩层 ==================== */
+.progress-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(8px);
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.progress-overlay.active {
+    display: flex;
+}
+
+/* 与modal-content样式保持一致 */
+.progress-container {
+    position: relative;
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-xl);
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+    box-shadow: var(--glass-shadow);
+    animation: modalSlideUp 0.4s var(--ease-smooth);
+}
+
+.progress-title {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: white;
+    margin-bottom: var(--spacing-lg);
+    letter-spacing: 0.05em;
+}
+
+.progress-bar-wrapper {
+    width: 100%;
+    height: 12px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: var(--spacing-md);
+    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+    border-radius: 6px;
+    transition: width 0.1s linear;
+    box-shadow: 0 0 10px rgba(212, 82, 48, 0.5);
+}
+
+.progress-text {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: white;
+    font-family: monospace;
+}
+
+/* ==================== 响应式设计 ==================== */
+@media (max-width: 1024px) {
+    .edit-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .card-preview-wrapper {
+        position: relative;
+        top: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .app-container {
+        padding: var(--spacing-md);
+    }
+    
+    .page-title {
+        font-size: 2rem;
+    }
+    
+    .templates-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: var(--spacing-sm);
+    }
+    
+    .animation-stage {
+        width: 100%;
+        max-width: 400px;
+        height: 400px;
+    }
+    
+    .card-element {
+        width: 200px;
+        height: 267px;
+    }
+    
+    .envelope-element {
+        width: 240px;
+        height: 160px;
+    }
+}

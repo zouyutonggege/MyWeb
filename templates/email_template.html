@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新年祝福</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+            background: linear-gradient(135deg, #d45230, #e29054);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 600px;
+            margin: 40px auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+        .header {
+            background: linear-gradient(135deg, #d45230, #e29054);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2rem;
+            letter-spacing: 2px;
+            color: white;
+        }
+        .card-cover {
+            padding: 30px;
+            text-align: center;
+            background: #f8d89d;
+        }
+        .cover-image {
+            max-width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            display: block;
+            margin: 0 auto 20px;
+        }
+        .download-section {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 10px;
+        }
+        .download-hint {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        .download-icon {
+            display: inline-block;
+            font-size: 1.5rem;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+        .message {
+            padding: 30px;
+        }
+        .message-content {
+            background: #fff9f0;
+            padding: 25px;
+            border-radius: 12px;
+            border-left: 4px solid #d45230;
+        }
+        .to-name {
+            font-size: 1.5rem;
+            color: #d45230;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        .text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #333;
+            margin-bottom: 20px;
+            white-space: pre-line;
+        }
+        .from-name {
+            text-align: right;
+            font-size: 1rem;
+            color: #666;
+            font-style: italic;
+        }
+        .footer {
+            background: #f5f5f5;
+            padding: 20px;
+            text-align: center;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        .footer p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🧧 新年电子贺卡</h1>
+        </div>
+
+        <div class="card-cover">
+            <!-- 封面动图 -->
+            <img src="cid:cover_gif" alt="贺卡封面" class="cover-image">
+            
+            <div class="download-section">
+                <p class="download-hint">📎 贺卡附件已随邮件发送，请查收下载</p>
+            </div>
+        </div>
+
+        <div class="message">
+            <div class="message-content">
+                <div class="to-name">{{ to_name }}</div>
+                <div class="text">{{ message }}</div>
+                <div class="from-name">—— {{ from_name }}</div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>这是一封「{{ from_name }}」发送的祝福</p>
+            <p>愿新的一年，所有美好如约而至 🎉</p>
+        </div>
+    </div>
+</body>
+</html>
