@@ -29,8 +29,8 @@ CORS(app)
 # 邮件服务器配置 (请根据实际情况修改)
 SMTP_CONFIG = {
     'host': 'smtp.qq.com',
-    'port': 465,                                     # 换成 465，更稳定
-    'use_tls': False,                                # 465 端口不需要显式 TLS
+    'port': 465,
+    'use_tls': True,   # 把 False 改成 True
     'username': '3383227706@qq.com',                # 直接写你的 QQ 号
     'password': 'bvsxtsrtyfqdchbf',                # 直接写你的授权码
     'from_name': '新年电子贺卡',                     
