@@ -232,7 +232,7 @@ elements.templateItems.forEach((item, index) => {
     item.addEventListener('click', () => {
         const templateId = item.dataset.template;
         appState.selectedTemplate = templateId;
-        elements.cardInnerImage.src = `cards/${templateId.padStart(2, '0')}_inner page.png`;
+        elements.cardInnerImage.src = `cards/${templateId.padStart(2, '0')}_innerpage.png`;
         switchPage('page-select', 'page-edit');
     });
 });
